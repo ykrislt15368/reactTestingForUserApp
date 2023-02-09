@@ -1,8 +1,36 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render,screen } from "@testing-library/react";
+import App from "./App";
+import user from '@testing-library/user-event';
+import "@testing-library/jest-dom";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("Testing user and email added in list",()=>{
+
+    render(<App/>);
+
+    const nameInput = screen.getByRole('textbox',{
+        name: /name/i
+    });
+
+    const emailInput = screen.getByRole('textbox',{
+        name: /email/i
+    });
+
+
+    user.click(nameInput);
+    user.keyboard('abc');
+
+    user.click(emailInput);
+    user.keyboard('kri');
+
+    const button = screen.getByRole('button');
+    user.click(button);
+
+    
+
+     const name = screen.getByRole('cell', { name: 'abc' });
+     const email = screen.getByRole('cell', { name: 'kri' });
+
+     expect(name).toBeInTheDocument();
+     expect(email).toBeInTheDocument();
+
 });
